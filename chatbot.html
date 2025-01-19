@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Coach Chatbot</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #005f73;
+            padding: 15px 30px;
+            color: white;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 20px;
+            background-color: #00796b;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #004d40;
+        }
+
+        /* Chatbot Section */
+        main {
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            /* background-color: #ffffff; */
+            border-radius: 8px;
+            margin: 20px;
+        }
+
+        #chatbot-section {
+            max-width: 800px;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        #chatbox {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            height: 200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        #chat-log {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .user-message,
+        .bot-message {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 5px 0;
+            font-size: 1.1rem;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: #00796b;
+            color: white;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: #e0f2f1;
+            color: #00796b;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border: 2px solid #00796b;
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004d40;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #005f73;
+            color: white;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            margin-top: 10px;
+        }
+
+        h2 {
+            color: #00796b;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #00796b41;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        /* Question Buttons */
+        .question-button {
+            display: inline-block;
+            padding: 5px 10px; /* Reduced padding for smaller button */
+            margin: 10px;
+            background-color: #00796b;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem; /* Optional: reduce font size */
+        }
+
+
+        .question-button:hover {
+            background-color: #004d40;
+        }
+
+        .profile-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s;
+            background-color: #92f2e7;
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.1); /* Slight zoom on hover */
+            color: #007bff; /* Change color on hover */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Virtual Career Coach</h1>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="career-paths.html">Career Paths</a>
+            <a href="courses.html">Recommended Courses</a>
+            <a href="chatbot.html">Career Coach</a>
+        </nav>
+        <a href="profile.html" class="profile-icon">
+            <span class="default-profile-icon">&#128100;</span> <!-- Unicode for person icon -->
+        </a>
+    </header>
+
+    <main>
+        <section id="chatbot-section">
+            <h2>Talk to Your Virtual Career Coach</h2>
+            <div id="chatbox">
+                <div id="chat-log"></div>
+            </div>
+            <div>
+                <input type="text" id="user-input" placeholder="Ask a career question" onkeydown="if(event.key === 'Enter'){ sendMessage(); }">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+
+            <div id="question-list">
+                <div class="question-button" onclick="sendPredefinedMessage('What skills should I learn for a career in AI?')">What skills should I learn for a career in AI?</div>
+                <div class="question-button" onclick="sendPredefinedMessage('What are the best career paths in tech?')">What are the best career paths in tech?</div>
+                <div class="question-button" onclick="sendPredefinedMessage('Where can I find job opportunities?')">Where can I find job opportunities?</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AI Career Navigator</p>
+    </footer>
+
+    <script>
+        const chatLog = document.getElementById('chat-log');
+        const userInput = document.getElementById('user-input');
+
+        // Function to handle sending a message
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message !== '') {
+                appendMessage(message, 'user');
+                userInput.value = '';
+                respondToMessage(message);
+            }
+        }
+
+        // Function to handle predefined questions
+        function sendPredefinedMessage(message) {
+            appendMessage(message, 'user');
+            respondToMessage(message);
+        }
+
+        // Function to display messages
+        function appendMessage(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add(sender + '-message');
+            messageDiv.textContent = message;
+            chatLog.appendChild(messageDiv);
+            chatLog.scrollTop = chatLog.scrollHeight; // Scroll to the bottom
+        }
+
+        // Function to generate a response from the bot
+        function respondToMessage(message) {
+            let response = 'I\'m not sure about that, but I can help you find career paths or recommend courses!';
+            if (message.toLowerCase().includes('skills')) {
+                response = 'To improve your skills, consider taking online courses in programming, data science, or design.';
+            } else if (message.toLowerCase().includes('career path')) {
+                response = 'I can help you explore different career paths in tech, AI, or design. What interests you?';
+            } else if (message.toLowerCase().includes('job opportunities')) {
+                response = 'You can explore job opportunities on platforms like LinkedIn, Indeed, or Glassdoor!';
+            }
+
+            setTimeout(() => appendMessage(response, 'bot'), 1000); // Simulate a delay for the bot response
+        }
+    </script>
+</body>
+</html>

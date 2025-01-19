@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Navigator - Login</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #005f73;
+            padding: 15px 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #00796b;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #00796b41;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"], input[type="password"] {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            border-color: #00796b;
+            outline: none;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004d40;
+        }
+
+        #loginError {
+            color: red;
+            text-align: center;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #005f73;
+            color: white;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            margin-top: 30px;
+        }
+    </style>
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Example validation logic
+            if (username === "user" && password === "password") {
+                window.location.href = "home.html"; // Redirect to index.html
+            } else {
+                const errorElement = document.getElementById('loginError');
+                errorElement.style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>AI Career Navigator - Login</h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Login to Your Account</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+
+                <button type="submit">Login</button>
+            </form>
+            <p id="loginError">Invalid credentials. Please try again.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AI Career Navigator</p>
+    </footer>
+</body>
+</html>

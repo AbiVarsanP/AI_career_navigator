@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPath.ai</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            /* line-height: 1.6; */
+        }
+
+        header {
+            background-color: #005f73;
+            padding: 15px 30px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 20px;
+            background-color: #00796b;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #004d40;
+        }
+
+        /* Profile Icon */
+        .profile-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s;
+            background-color: #92f2e7;
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.1); /* Slight zoom on hover */
+            color: #007bff; /* Change color on hover */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #005f73;
+            color: white;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            margin-top: 30px;
+        }
+
+        main {
+            padding: 30px 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            margin-bottom: 80px;
+        }
+
+        /* Career Quiz Section */
+        
+
+        /* Search Bar */
+        .search-bar {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .search-bar:focus {
+            border-color: #00796b;
+        }
+
+        /* Newsletter Subscription */
+        .newsletter {
+            margin-top: 30px;
+            background-color: #e0f2f1;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .newsletter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter input {
+            padding: 12px;
+            font-size: 1rem;
+            width: 40%;
+            margin: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .newsletter button {
+            padding: 12px 24px;
+            background-color: #00796b;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            background-color: #004d40;
+        }
+
+        /* Modal (Career Quiz) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .modal-footer button {
+            background-color: #00796b;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-footer button:hover {
+            background-color: #004d40;
+        }
+
+        /* Daily Tip Section */
+        #daily-tips {
+            background-color: #e0f2f1;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        #daily-tips h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        #daily-tips p {
+            font-size: 1.2rem;
+            color: #00796b;
+            font-weight: 600;
+        }
+
+        /* Start Exploring Button */
+        #intro button {
+            padding: 15px 25px;
+            background-color: #00796b;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #intro button:hover {
+            background-color: #004d40;
+        }
+
+        /* Trend Suggestions Section */
+        .trends-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .trend-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .trend-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .trend-card h4 {
+            font-size: 1.3rem;
+            color: #00796b;
+        }
+
+        .trend-card p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Web Features Section */
+        .features-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            gap: 20px;
+        }
+
+        .feature-card {
+            background-color: #ffffff;
+            padding: 20px;
+            width: 22%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .feature-card h4 {
+            font-size: 1.3rem;
+            color: #00796b;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        h2{
+            color: #00796b;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #00796b41;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AI Career Navigator</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="career-paths.html">Career Paths</a>
+            <a href="courses.html">Recommended Courses</a>
+            <a href="chatbot.html">Career Coach</a>
+        </nav>
+        <a href="profile.html" class="profile-icon">
+            <span class="default-profile-icon">&#128100;</span> <!-- Unicode for person icon -->
+        </a>
+    </header>
+
+    <main>
+        <div class="container">
+            <section id="intro">
+                <h2>Welcome to AI Career Navigator</h2>
+                <p>Your AI-powered platform to explore careers, improve skills, and get personalized job recommendations.</p>
+                <button onclick="window.location.href='career-paths.html'">Start Exploring</button>
+            </section>
+
+            <!-- Trend Suggestions Section -->
+            <br><br><h2>Trends</h2>
+            <section class="trends-section">
+                <div class="trend-card">
+                    <h4>AI in Healthcare</h4>
+                    <p>Explore the growing opportunities for AI in healthcare and medicine, from diagnostics to personalized treatments.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>Data Science & Analytics</h4>
+                    <p>Data-driven decision-making is transforming businesses. Learn how to become a data science expert in a fast-growing field.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>Robotics & Automation</h4>
+                    <p>Automation is revolutionizing industries. Discover career opportunities in designing and developing robotics solutions.</p>
+                </div>
+            </section>
+
+            <!-- Web Features Section -->
+            <br><br><h2>Key Features</h2>
+            <section class="features-section">
+                <div class="feature-card">
+                    <h4>Personalized Career Advice</h4>
+                    <p>Get career guidance tailored to your skills, interests, and experience level.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Skill Gap Analyzer</h4>
+                    <p>Identify areas to improve in your current skill set to better align with your career goals.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Recommended Courses</h4>
+                    <p>Find the best courses to help you build the skills needed for your chosen career path.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>AI Career Coach</h4>
+                    <p>Get real-time advice and recommendations from our AI-powered career coach.</p>
+                </div>
+            </section>
+
+            <section id="daily-tips">
+                <h3>Daily Career Tip</h3>
+                <p id="tip">Consistency is key to mastering any skill.</p>
+            </section>
+
+            <section class="newsletter">
+                <h3>Stay Updated with AI Career News</h3>
+                <p>Sign up for our newsletter to receive the latest AI career tips and opportunities.</p>
+                <form>
+                    <input type="email" placeholder="Enter your email" required />
+                    <button type="submit">Subscribe</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>Copyright &copy; 2025 AI Career Navigator. All rights reserved.</p>
+    </footer>
+</body>
+</html>

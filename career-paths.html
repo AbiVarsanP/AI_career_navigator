@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Paths</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            /* line-height: 1.6; */
+        }
+
+        header {
+            background-color: #005f73;
+            padding: 15px 30px;
+            color: white;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 20px;
+            background-color: #00796b;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #004d40;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #005f73;
+            color: white;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            margin-top: 10px;
+        }
+
+        main {
+            padding: 30px 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            margin-bottom: 60px;
+        }
+
+        /* Career Form */
+        /* Career Recommendations Section */
+        #career-recommendations {
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #career-recommendations h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #005f73;
+            font-weight: 700;
+        }
+
+        #career-recommendations p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        #career-recommendations label {
+            font-size: 1rem;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        #career-recommendations input[type="text"],
+        #career-recommendations input[type="email"],
+        #career-recommendations select {
+            padding: 12px;
+            font-size: 1rem;
+            width: 50%;
+            margin: 10px 0 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            outline: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #career-recommendations select {
+            cursor: pointer;
+        }
+
+        #career-recommendations button {
+            padding: 12px 24px;
+            background-color: #00796b;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        #career-recommendations button:hover {
+            background-color: #004d40;
+        }
+
+        /* Checkboxes for Technologies */
+        #career-recommendations fieldset {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        #career-recommendations fieldset legend {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #005f73;
+        }
+
+        #career-recommendations label input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        /* Career Result Section */
+        #career-result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e0f2f1;
+            border-radius: 8px;
+            display: none;
+            text-align: left;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        #career-result h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        #career-result ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        #career-result ul li {
+            margin-bottom: 10px;
+        }
+
+
+        /* Skill Progress Tracker */
+        .progress-container {
+            margin-top: 30px;
+            background-color: #e0f2f1;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .progress-bar {
+            width: 50%;
+            background-color: #00796b;
+            height: 20px;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Modal (Career Quiz) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .modal-footer button {
+            background-color: #00796b;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-footer button:hover {
+            background-color: #004d40;
+        }
+
+        /* Newsletter Subscription */
+        .newsletter {
+            margin-top: 30px;
+            background-color: #e0f2f1;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .newsletter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter input {
+            padding: 12px;
+            font-size: 1rem;
+            width: 40%;
+            margin: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .newsletter button {
+            padding: 12px 24px;
+            background-color: #00796b;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            background-color: #004d40;
+        }
+
+        .quiz-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .quiz-section button {
+            padding: 15px 25px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-section button:hover {
+            background-color: #004d40;
+        }
+
+        
+
+        /* Skill Gap Analyzer Section */
+        #skill-gap-analyzer {
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #skill-gap-analyzer h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #005f73;
+            font-weight: 700;
+        }
+
+        #skill-gap-analyzer p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        #skill-gap-analyzer label {
+            font-size: 1rem;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        #skill-gap-analyzer input[type="text"] {
+            padding: 12px;
+            font-size: 1rem;
+            width: 50%;
+            margin: 10px 0 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            outline: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #skill-gap-analyzer button {
+            padding: 12px 24px;
+            background-color: #00796b;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        #skill-gap-analyzer button:hover {
+            background-color: #004d40;
+        }
+
+        /* Gap Analysis Result Section */
+        #gap-result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e0f2f1;
+            border-radius: 8px;
+            display: none;
+            text-align: left;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        #gap-result h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        #gap-result ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        #gap-result ul li {
+            margin-bottom: 10px;
+        }
+
+        h2{
+            color: #00796b;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #00796b41;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .profile-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s;
+            background-color: #92f2e7;
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.1); /* Slight zoom on hover */
+            color: #007bff; /* Change color on hover */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Career Paths</h1>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="career-paths.html">Career Paths</a>
+            <!-- <a href="skill-gap.html">Skill Gap Analyzer</a> -->
+            <a href="courses.html">Recommended Courses</a>
+            <a href="chatbot.html">Career Coach</a>
+        </nav>
+        <a href="profile.html" class="profile-icon">
+            <span class="default-profile-icon">&#128100;</span> <!-- Unicode for person icon -->
+        </a>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Career Path Recommendations Form -->
+            <section id="career-recommendations">
+                <h2>Explore Career Paths</h2>
+                <p>Enter your details to discover career paths that suit you:</p>
+                <form id="career-form">
+                    <!-- Skills Input -->
+                    <label for="skills">Enter your skills:</label>
+                    <input type="text" id="skills" name="skills" placeholder="e.g., Python, Data Analysis, Machine Learning" required>
+            
+                    <!-- Interests Input -->
+                    <label for="interests">Enter your interests:</label>
+                    <input type="text" id="interests" name="interests" placeholder="e.g., AI, Software Development, Research" required>
+            
+                    <!-- Experience Level -->
+                    <label for="experience">What is your experience level?</label>
+                    <select id="experience" name="experience" required>
+                        <option value="">Select your experience level</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+            
+                    <!-- Preferred Work Environment -->
+                    <label for="work-environment">Preferred work environment:</label>
+                    <select id="work-environment" name="work-environment" required>
+                        <option value="">Select your preferred work environment</option>
+                        <option value="Office">Office</option>
+                        <option value="Remote">Remote</option>
+                        <option value="Hybrid">Hybrid</option>
+                    </select>
+            
+                    <!-- Location Preferences -->
+                    <label for="location">Preferred location:</label>
+                    <input type="text" id="location" name="location" placeholder="e.g., New York, California, Remote" required>
+            
+                    <!-- Technologies and Fields of Interest -->
+                    <fieldset>
+                        <legend>Which technologies or fields are you interested in? (Select all that apply)</legend>
+                        <label><input type="checkbox" name="technologies" value="AI"> AI</label><br>
+                        <label><input type="checkbox" name="technologies" value="Machine Learning"> Machine Learning</label><br>
+                        <label><input type="checkbox" name="technologies" value="Data Science"> Data Science</label><br>
+                        <label><input type="checkbox" name="technologies" value="Software Development"> Software Development</label><br>
+                        <label><input type="checkbox" name="technologies" value="Cloud Computing"> Cloud Computing</label><br>
+                        <label><input type="checkbox" name="technologies" value="Blockchain"> Blockchain</label><br>
+                        <label><input type="checkbox" name="technologies" value="Cybersecurity"> Cybersecurity</label><br>
+                    </fieldset>
+            
+                    <!-- Submit Button -->
+                    <button type="submit">Get Career Recommendations</button>
+                </form>
+            
+                <!-- Results Section -->
+                <div id="career-result"></div>
+            </section>
+
+            <section id="skill-gap-analyzer">
+                <h2>Skill Gap Analyzer</h2>
+                <p>Enter your skills and interests to analyze the gap and see what additional skills you need:</p>
+                <form id="gap-form">
+                    <!-- Skills Input for Analyzer -->
+                    <label for="user-skills">Enter your current skills:</label>
+                    <input type="text" id="user-skills" name="user-skills" placeholder="e.g., Python, Data Analysis, Machine Learning" required>
+            
+                    <!-- Interests Input for Analyzer -->
+                    <label for="user-interests">Enter your career interests:</label>
+                    <input type="text" id="user-interests" name="user-interests" placeholder="e.g., AI, Software Development, Research" required>
+            
+                    <!-- Submit Button for Analyzer -->
+                    <button type="submit">Analyze Skill Gap</button>
+                </form>
+            
+                <!-- Gap Analysis Results Section -->
+                <div id="gap-result"></div>
+            </section>
+            
+            
+
+            <!-- <section id="career-quiz" class="quiz-section">
+                <div>
+                    <h3>Take the Career Quiz</h3>
+                    <p>Answer a few questions to discover the ideal career path for you!</p>
+                    <button onclick="window.location.href='quiz.html'">Start Quiz</button>
+                </div>
+            </section> -->
+
+            <!-- Skill Progress Tracker -->
+            <!-- <section class="progress-container">
+                <h3>Track Your Progress</h3>
+                <div class="progress-bar" id="progress-bar"></div>
+                <p class="progress-text">Skills Progress: 50%</p>
+            </section> -->
+
+            <!-- Newsletter Signup -->
+            <section class="newsletter">
+                <h3>Stay Updated with Career News</h3>
+                <p>Sign up for the latest news on AI career opportunities and tips.</p>
+                <form>
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 AI Career Navigator</p>
+    </footer>
+
+    <!-- Modal for Career Quiz -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Career Quiz</h2>
+            </div>
+            <div class="modal-body">
+                <p>Answer a few questions to get personalized career advice.</p>
+                <!-- Add quiz questions here -->
+                <button onclick="closeQuizModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form handling for Career Recommendations
+        // Form handling for Career Recommendations
+        // Career Recommendations Form Handling
+        document.getElementById('career-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            const skills = document.getElementById('skills').value;
+            const interests = document.getElementById('interests').value;
+            const experience = document.getElementById('experience').value;
+            const workEnvironment = document.getElementById('work-environment').value;
+            const location = document.getElementById('location').value;
+            
+            // Get selected technologies
+            const technologies = Array.from(document.querySelectorAll('input[name="technologies"]:checked')).map(checkbox => checkbox.value);
+            
+            const resultDiv = document.getElementById('career-result');
+            
+            // Dynamically suggest careers based on input
+            let careerSuggestions = '';
+            
+            if (experience === "Beginner" && technologies.includes("AI")) {
+                careerSuggestions += "<li>AI Researcher (Entry-Level) - Ideal for beginners interested in AI research.</li>";
+            }
+            if (experience === "Intermediate" && technologies.includes("Machine Learning")) {
+                careerSuggestions += "<li>Machine Learning Engineer - Perfect for intermediate level with a strong background in ML.</li>";
+            }
+            if (technologies.includes("Data Science") && workEnvironment === "Remote") {
+                careerSuggestions += "<li>Remote Data Scientist - Specialize in data analysis and analytics, suitable for remote work.</li>";
+            }
+        
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<h3>Career Suggestions:</h3>
+                                   <p>Based on your profile, we recommend the following career paths:</p>
+                                   <ul>${careerSuggestions}</ul>`;
+        });
+        
+        // Dynamic Skill Progress Tracker
+        window.onload = function() {
+            const progressBar = document.getElementById("progress-bar");
+            let progress = 50; // Dynamically update based on skills level (for example, 50% completion)
+            progressBar.style.width = progress + '%';
+        };
+        
+        // Open Career Quiz Modal
+        function openQuizModal() {
+            const modal = document.getElementById('quizModal');
+            modal.style.display = 'flex';  // Open the modal
+        }
+        
+        // Close the Career Quiz Modal
+        function closeQuizModal() {
+            const modal = document.getElementById('quizModal');
+            modal.style.display = 'none';  // Close the modal
+        }
+
+        document.getElementById("gap-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Get user input for skills and interests
+            let userSkills = document.getElementById("user-skills").value;
+            let userInterests = document.getElementById("user-interests").value;
+
+            // Simple skill gap analysis logic (you can improve this with a more complex logic or API)
+            let requiredSkills = ["Python", "Machine Learning", "Data Science", "AI", "Software Development"]; // Example of required skills
+            let userSkillsList = userSkills.split(',').map(skill => skill.trim());
+
+            let missingSkills = requiredSkills.filter(skill => !userSkillsList.includes(skill));
+
+            // Display result
+            let gapResult = document.getElementById("gap-result");
+            if (missingSkills.length > 0) {
+                gapResult.innerHTML = `<h3>Skill Gap Analysis</h3>
+                                       <p>Based on your input, we recommend you acquire the following skills:</p>
+                                       <ul>
+                                           ${missingSkills.map(skill => `<li>${skill}</li>`).join('')}
+                                       </ul>`;
+            } else {
+                gapResult.innerHTML = `<h3>No Skill Gaps Found</h3>
+                                       <p>You have all the required skills for your chosen career path!</p>`;
+            }
+        
+            gapResult.style.display = 'block';
+        });
+
+
+    </script>
+</body>
+</html>
